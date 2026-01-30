@@ -1,6 +1,6 @@
 # Keep all specific user configs here as a module
 {
   # List your users here
-  lambdajon = import ./lambdajon.nix;
+  muhammad = import ./muhammad.nix;
   # wpc = import ./wpc.nix;
 }

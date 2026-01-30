@@ -68,8 +68,8 @@
     # This is required information for home-manager to do its job
     home = {
       stateVersion = "24.11";
-      username = "lambdajon";
-      homeDirectory = "/${home}/lambdajon";
+      username = "muhammad";
+      homeDirectory = "/${home}/muhammad";
       enableNixpkgsReleaseCheck = false;
 
       # Tell it to map everything in the `config` directory in this

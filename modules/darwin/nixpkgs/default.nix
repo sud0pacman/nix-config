@@ -82,7 +82,7 @@
         ];
         # Trusted users for secret-key
         trusted-users = [
-          "${config.users.users.lambdajon.name}"
+          "${config.users.users.muhammad.name}"
         ];
         substituters = [
           "https://hackage-server.cachix.org/"

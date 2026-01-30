@@ -11,7 +11,7 @@
     # outputs.darwinModules.secret
     outputs.darwinModules.nixpkgs
     outputs.darwinModules.homebrew
-    outputs.darwinModules.users.lambdajon
+    outputs.darwinModules.users.muhammad
 
     # Home Manager Darwin Module
     inputs.home-manager.darwinModules.home-manager

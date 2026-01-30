@@ -163,7 +163,7 @@
       # Available through 'darwin-rebuild build --flake .#your-hostname'
       # Stored at/as root/darwin/<alias name for machine>/*.nix
 
-      darwinConfigurations."Lambdajons-MacBook-Pro" = inputs.nix-darwin.lib.darwinSystem {
+      darwinConfigurations."Ganiyevs-MacBook-Pro" = inputs.nix-darwin.lib.darwinSystem {
         system = "aarch-darwin";
         modules = [
           ./darwin/macbook-pro/configuration.nix
