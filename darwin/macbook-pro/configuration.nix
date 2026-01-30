@@ -19,8 +19,8 @@
 
   # Networking DNS & Interfaces
   networking = {
-    computerName = "Lambdajon’s MacBook Pro"; # Define your computer name.
-    localHostName = "Lambdajons-MacBook-Pro"; # Define your local host name.
+    computerName = "Muhammad’s MacBook Pro"; # Define your computer name.
+    localHostName = "Muhammad-MacBook-Pro"; # Define your local host name.
   };
 
   # List packages installed in system profile. To search by name, run:

@@ -4,7 +4,7 @@
       enable = true;
       settings = {
         logo = {
-          source = "Lambdajon";
+          source = "Muhammad";
           padding = {
             top = 3;
             right = 3;
