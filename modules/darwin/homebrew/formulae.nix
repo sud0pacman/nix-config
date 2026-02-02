@@ -7,6 +7,8 @@
     "pkl"
     "mas"
     "git-lfs"
+    "cocoapods"
+    "ruby"
   ];
 in {
   # Homebrew Formulae installations

@@ -11,7 +11,11 @@
       enableBashCompletion = true;
       enableSyntaxHighlighting = true;
       # zsh-theme
-      promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      # promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      interactiveShellInit = ''
+        typeset -g POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      '';
     };
 
     # Automatic flake devShell loading

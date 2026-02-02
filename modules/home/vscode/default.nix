@@ -21,7 +21,7 @@
           jnoortheen.nix-ide
           # Nix formatter uchun nixpkgs dan alejandra-ni ham qo'shishni unutmang
 
-          # --- Rust ---
+          # --- Rust ---w
           rust-lang.rust-analyzer
           tamasfe.even-better-toml
 
