@@ -17,6 +17,7 @@
     "telegram-desktop"
     "visual-studio-code"
     "zen"
+    "steam"
   ];
 in {
   # Homebrew Casks installations

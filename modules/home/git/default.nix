@@ -16,7 +16,7 @@
 
   config = {
     # Git Configurations
-    programs.git = {
+    programs.git.settings = {
       enable = true;
       lfs.enable = true;
 

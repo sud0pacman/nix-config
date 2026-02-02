@@ -2,6 +2,7 @@
   inputs,
   outputs,
   lib,
+  pkgs,
   ...
 }: {
   # You can import other Darwin modules here
@@ -21,6 +22,20 @@
   networking = {
     computerName = "Muhammad-MacBook"; # Define your computer name.
     localHostName = "Muhammad-MacBook"; # Define your local host name.
+  };
+
+  # Shriftlar va Ikonkalar uchun
+  fonts.packages = with pkgs; [
+    # Agar ligaturali va ikonkali SF Mono kerak bo'lsa
+    # Bu paket ko'p hollarda Apple shriftlarini o'z ichiga oladi
+    pkgs.nerd-fonts.monaspace 
+    # Yoki shunchaki ikonkalarni tizim miqyosida yangilab qo'yamiz
+    pkgs.nerd-fonts.symbols-only
+  ];
+
+  # macOS tizim sozlamalari (iTerm2 va umumiy ko'rinish uchun foydali)
+  system.defaults = {
+    NSGlobalDomain.AppleFontSmoothing = 1; # Shriftlar juda qalin bo'lmasligi uchun
   };
 
   # List packages installed in system profile. To search by name, run:
