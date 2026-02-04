@@ -30,16 +30,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1760966194,
-        "narHash": "sha256-R9qsSD5fBWUzLoSKrzUnSj4ojRlJ+W3+Br98hV+SCZA=",
-        "owner": "xinux-org",
+        "lastModified": 1767634391,
+        "narHash": "sha256-owcSz2ICqTSvhBbhPP+1eWzi88e54rRZtfCNE5E/wwg=",
+        "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "fc209aba19961834d1c6f8f940e1d982d55ff13d",
+        "rev": "08585aacc3d6d6c280a02da195fdbd4b9cf083c2",
         "type": "github"
       },
       "original": {
-        "owner": "xinux-org",
-        "ref": "nix-darwin-25.05",
+        "owner": "nix-darwin",
+        "ref": "nix-darwin-25.11",
         "repo": "nix-darwin",
         "type": "github"
       }
