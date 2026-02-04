@@ -4,13 +4,19 @@
   #   /  |/ / / |/_/  / /   / __ \/ __ \/ /_/ ___/
   #  / /|  / />  <   / /___/ /_/ / / / / __(__  )
   # /_/ |_/_/_/|_|   \____/\____/_/ /_/_/ /____/
-  description = "Lambdajon's dotfiles";
+  description = "Muhammad's dotfiles";
 
   # inputs are other flakes you use within your own flake, dependencies
   # for your flake, etc.
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+
+    # Xinux library
+    xinux-lib = {
+      url = "github:xinux-org/lib/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # You can access packages and modules from different nixpkgs revs
     # at the same time. Here's an working example:
@@ -82,94 +88,43 @@
 
   # In this context, outputs are mostly about getting home-manager what it
   # needs since it will be the one using the flake
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    flake-utils,
-    orzklv-pkgs,
-    ...
-  } @ inputs: let
-    # Self instance pointer
-    outputs = self;
-  in
-    # Attributes for each system
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-        # Nixpkgs packages for the current system
-        {
-          # Development shells
-          devShells.default = import ./shell.nix {inherit pkgs;};
-        }
-    )
-    # and ...
-    //
-    # Attribute from static evaluation
-    {
-      # Formatter for your nix files, available through 'nix fmt'
-      # Other options beside 'alejandra' include 'nixpkgs-fmt'
-      inherit (orzklv-pkgs) formatter;
+  outputs = inputs:
+    inputs.xinux-lib.mkFlake {
+      inherit inputs;
+      src = ./.;
 
-      # Nixpkgs, Home-Manager and personal helpful functions
-      lib = nixpkgs.lib // home-manager.lib // orzklv-pkgs.lib;
-
-      # Reusable nixos modules you might want to export
-      # These are usually stuff you would upstream into nixpkgs
-      nixosModules = import ./modules/nixos;
-
-      # Reusable darwin modules you might want to export
-      # These are usually stuff you would upstream into nixpkgs
-      darwinModules = import ./modules/darwin;
-
-      # Reusable home-manager modules you might want to export
-      # These are usually stuff you would upstream into home-manager
-      homeModules = import ./modules/home;
-
-      # NixOS configuration entrypoint
-      # Available through 'nixos-rebuild --flake .#your-hostname'
-      # Stored at/as root/nixos/<hostname lower case>/*.nix
-      # nixosConfigurations = orzklv-pkgs.lib.config.mapSystem {
-      #   inherit inputs outputs;
-      #   opath = ./.;
-      #   list = [
-      #     "Parallels"
-      #     # "Laboratory"
-      #     # "Station"
-      #   ];
-      # };
-      nixosConfigurations."tower" = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./nixos/tower/configuration.nix
-        ];
-        specialArgs = {
-          inherit inputs outputs;
-        };
+      # Extra nix flags to set
+      outputs-builder = channels: {
+        formatter = channels.nixpkgs.alejandra;
       };
 
-      nixosConfigurations."victus" = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./nixos/victus/configuration.nix
+      # Globally applied nixpkgs settings
+      channels-config = {
+        allowUnfree = true;
+        allowUnsupportedSystem = true;
+        allowUnfreePredicate = _: true;
+        allowBroken = true;
+
+        permittedInsecurePackages = [
+          "googleearth-pro-7.3.6.10201"
         ];
-        specialArgs = {
-          inherit inputs outputs;
-        };
       };
 
-      # Darwin configuration entrypoint
-      # Available through 'darwin-rebuild build --flake .#your-hostname'
-      # Stored at/as root/darwin/<alias name for machine>/*.nix
+      # Add modules to all NixOS systems. 
+      # output should be something meaningfull {}: {}
+      # Locals imported autom automaticly
+      # a lot of module.nix from remote repos.
 
-      darwinConfigurations."Muhammad-MacBook" = inputs.nix-darwin.lib.darwinSystem {
-        system = "aarch-darwin";
-        modules = [
-          ./darwin/macbook-pro/configuration.nix
-        ];
-        specialArgs = {
-          inherit inputs outputs;
+      # Extra project metadata
+      xinux = {
+        # Namespace for overlay, lib, packages
+        namespace = "muhammad";
+        # Example: lib.orzklv.match ...
+
+        # For data extraction
+        meta = {
+          name = "sud0pacman";
+          title = "sud0pacmanʼs Personal Flake Configuration";
         };
       };
     };
