@@ -35,8 +35,8 @@
     };
 
     # Nix-darwin for macOS systems management
-    nix-darwin = {
-      url = "github:xinux-org/nix-darwin/nix-darwin-25.05";
+    darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
