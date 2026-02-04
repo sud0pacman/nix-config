@@ -20,6 +20,8 @@ pkgs.stdenv.mkDerivation {
     statix
     deadnix
     alejandra
+    nixd
+    nixfmt
     hlint
     cabal2nix
   ];

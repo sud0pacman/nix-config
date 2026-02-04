@@ -48,6 +48,16 @@
           "nix.enableLanguageServer" = true;
           "nix.serverPath" = "nixd"; # yoki nil
           "nix.formatterPath" = "alejandra";
+          # Muhim: Ba'zida nix-ide nix-instantiate-ni topa olmaydi
+          "nix.packagePath" = "${pkgs.nix}/bin/nix"; 
+
+          "nix.serverSettings" = {
+            "nixd" = {
+              "formatting" = {
+                "command" = [ "alejandra" ];
+              };
+            };
+          };
           "[nix]" = {
             "editor.defaultFormatter" = "jnoortheen.nix-ide";
             "editor.formatOnSave" = true;
