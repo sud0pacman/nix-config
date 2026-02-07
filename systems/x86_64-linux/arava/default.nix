@@ -37,7 +37,7 @@
         };
 
         testshare = {
-          "path" = "/home/bahrom/Public";
+          "path" = "/home/muhammad/Public";
           "writable" = "yes";
           "comment" = "Hello World!";
           "browseable" = "yes";
