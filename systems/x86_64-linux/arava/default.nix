@@ -1,0 +1,74 @@
+{
+  lib,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+    ./modules.nix
+  ];
+
+  services.relago = {
+    enable = true;
+    # user = users.users.lambdajon;
+  };
+
+  networking.hostName = "arava";
+
+  # programs.nix-data = {
+  #   enable = true;
+  #   systemconfig = "/home/muhammad/workplace/sud0pacman/confs/modules/nixos/apps/default.nix";
+  #   flake = "/home/muhammad/workplace/sud0pacman/nix-config/flake.nix";
+  #   flakearg = "arava";
+  # };
+
+  services = {
+    samba = {
+      enable = true;
+      package = pkgs.samba4Full;
+      openFirewall = true;
+
+      settings = {
+        global = {
+          "server smb encrypt" = "required";
+          "server min protocol" = "SMB3_00";
+          "workgroup" = "WORKGROUP";
+          "security" = "user";
+        };
+
+        testshare = {
+          "path" = "/home/bahrom/Public";
+          "writable" = "yes";
+          "comment" = "Hello World!";
+          "browseable" = "yes";
+        };
+        # fayllar = {
+        #   "path" = "/media/fayllar";
+        #   "writable" = "yes";
+        #   "comment" = "Hello World!";
+        #   "browseable" = "yes";
+        # };
+      };
+    };
+    samba-wsdd = {
+      enable = true;
+      openFirewall = true;
+    };
+    avahi = {
+      enable = true;
+      publish.enable = true;
+      publish.userServices = true;
+      openFirewall = true;
+    };
+  };
+
+  # remove all gnome utility apps
+  # services.gnome.core-utilities.enable = false;
+
+  # Select host type for the system
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  # Used for backwards compatibility, please read the changelog before changing.
+  # $ darwin-rebuild changelog
+  system.stateVersion = "25.11";
+}
