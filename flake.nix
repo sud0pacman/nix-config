@@ -78,6 +78,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    mac-style-plymouth = {
+      url = "github:xinux-org/xinux-plymouth-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # TODO: Add any other flake you might need
     # hardware.url = "github:nixos/nixos-hardware";
 
@@ -104,10 +108,6 @@
         allowUnsupportedSystem = true;
         allowUnfreePredicate = _: true;
         allowBroken = true;
-
-        permittedInsecurePackages = [
-          "googleearth-pro-7.3.6.10201"
-        ];
       };
 
       # Add modules to all NixOS systems. 

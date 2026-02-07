@@ -5,13 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-    ./modules.nix
   ];
-
-  services.relago = {
-    enable = true;
-    # user = users.users.lambdajon;
-  };
 
   networking.hostName = "arava";
 
