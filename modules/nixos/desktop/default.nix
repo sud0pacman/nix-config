@@ -1,235 +1,145 @@
-# =================================
-# For further configuration extention, please refer to:
-# https://wiki.nixos.org/wiki/GNOME
-# =================================
-{
-  inputs,
-  pkgs,
-  ...
-}: let
-  x86_64-graphics =
-    if (!pkgs.stdenv.hostPlatform.isAarch64)
-    then {enable32Bit = true;}
-    else {};
-
-  all-graphics = {
-    enable = true;
-  };
-in {
+{pkgs, ...}: {
   config = {
-    # Enable the X11 windowing system.
+    console.keyMap = "us";
+
+    # Enable sound with pipewire.
+    security = {
+      rtkit.enable = true;
+    };
+
+    # Enable the GNOME Desktop Environment.
     services = {
-      xserver = {
-        enable = true;
+      flatpak.enable = true;
 
-        # Configure keymap in X11
-        xkb = {
-          variant = "";
-          layout = "us";
-        };
-
-        # Exclude some defautl packages
-        excludePackages = [pkgs.xterm];
-
-        # Enable the GDM display manager.
-        displayManager.gdm = {
+      displayManager = {
+        gdm = {
+          wayland = true;
           enable = true;
           autoSuspend = false;
         };
+      };
+      desktopManager.gnome = {
+        enable = true;
+        extraGSettingsOverrides = ''
+          # Prefer dark theme
+          [org.gnome.desktop.interface]
+          color-scheme='prefer-dark'
 
-        # Enable the GNOME Desktop Environment.
-        desktopManager.gnome = {
-          enable = true;
+          [org.gnome.desktop.interface]
+          icon-theme='Papirus-Dark'
 
-          extraGSettingsOverrides = ''
-            # Change default background
-            [org.gnome.desktop.background]
-            picture-uri='file://${pkgs.nixos-artwork.wallpapers.nineish.gnomeFilePath}'
+          # Favorite apps in gnome-shell
+          [org.gnome.shell]
+          favorite-apps=['org.gnome.Nautilus.desktop','org.gnome.SystemMonitor.desktop','org.gnome.Console.desktop','org.gnome.gitg.desktop','org.xinux.NixSoftwareCenter.desktop','org.xinux.NixosConfEditor.desktop','org.xinux.XinuxModuleManager.desktop','uz.xinux.EIMZOManager.desktop']
 
-            # Background for dark theme
-            [org.gnome.desktop.background]
-            picture-uri-dark='file://${pkgs.nixos-artwork.wallpapers.nineish-dark-gray.gnomeFilePath}'
+          # Enable user extensions
+          [org.gnome.shell]
+          disable-user-extensions=false
 
-            # Prefer dark theme
-            [org.gnome.desktop.interface]
-            color-scheme='prefer-dark'
+          # List of enabled extensions
+          [org.gnome.shell]
+          enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com', 'light-style@gnome-shell-extensions.gcampax.github.com', 'system-monitor@gnome-shell-extensions.gcampax.github.com']
 
-            # Favorite apps in gnome-shell
-            [org.gnome.shell]
-            favorite-apps=['org.gnome.Nautilus.desktop', 'zen-twilight.desktop', 'org.gnome.SystemMonitor.desktop', 'org.gnome.Console.desktop', 'org.gnome.gitg.desktop', 'org.gnome.Builder.desktop', 'org.gnome.Polari.desktop']
+          # Workspace should grow dynamically
+          [org.gnome.mutter]
+          dynamic-workspaces=true
 
-            # Enable user extensions
-            [org.gnome.shell]
-            disable-user-extensions=false
+          # Edge Tiling with mouse
+          [org.gnome.mutter]
+          edge-tiling=true
 
-            # List of enabled extensions
-            [org.gnome.shell]
-            enabled-extensions=['user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'appindicatorsupport@rgcjonas.gmail.com', 'light-style@gnome-shell-extensions.gcampax.github.com', 'system-monitor@gnome-shell-extensions.gcampax.github.com']
+          # Use default color scheme
+          [org.gnome.desktop.interface]
+          color-scheme='default'
 
-            # Workspace should grow dynamically
-            [org.gnome.mutter]
-            dynamic-workspaces=true
+          # Automatic timezone
+          [org.gnome.desktop.datetime]
+          automatic-timezone=true
 
-            # Edge Tiling with mouse
-            [org.gnome.mutter]
-            edge-tiling=true
+          # Never show the notice on tweak
+          [org.gnome.tweaks]
+          show-extensions-notice=false
 
-            # Set the icon theme
-            [org.gnome.desktop.interface]
-            icon-theme='Papirus-Dark'
+          # Show all three button layers
+          [org.gnome.desktop.wm.preferences]
+          button-layout='appmenu:minimize,maximize,close'
 
-            # Use default color scheme
-            [org.gnome.desktop.interface]
-            color-scheme='default'
+          # Dash to dock for multiple monitors
+          [org.gnome.shell.extensions.dash-to-dock]
+          multi-monitor=true
 
-            # Automatic timezone
-            [org.gnome.desktop.datetime]
-            automatic-timezone=true
+          # Custom theme on Dash to dock
+          [org.gnome.shell.extensions.dash-to-dock]
+          apply-custom-theme=true
 
-            # Never show the notice on tweak
-            [org.gnome.tweaks]
-            show-extensions-notice=false
+          [org.gnome.shell.extensions.dash-to-dock]
+          click-action='minimize'
 
-            # Show all three button layers
-            [org.gnome.desktop.wm.preferences]
-            button-layout='appmenu:minimize,maximize,close'
+          # Don't hibernate on delay
+          [org.gnome.settings-daemon.plugins.power]
+          sleep-inactive-ac-type='nothing'
 
-            # Shitty monospace font to JetBrains Mono
-            [org.gnome.desktop.interface]
-            monospace-font-name='JetBrainsMono Nerd Font 10'
+          # Don't sleep, don't sleep!
+          [org.gnome.desktop.session]
+          idle-delay=0
 
-            # Dash to dock for multiple monitors
-            [org.gnome.shell.extensions.dash-to-dock]
-            multi-monitor=true
+          [org.gnome.settings-daemon.plugins.media-keys]
+          custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+          screensaver=['<Control><Alt>l']
 
-            # Custom theme on Dash to dock
-            [org.gnome.shell.extensions.dash-to-dock]
-            apply-custom-theme=true
+          [org.gnome.settings-daemon.plugins.media-keys.custom-keybindings.custom0]
+          binding='<Shift><Control>t'
+          command='kgx --tab'
+          name='open terminal'
+        '';
+        extraGSettingsOverridePackages = [
+          pkgs.gsettings-desktop-schemas
+          pkgs.gnome-shell
+        ];
+      };
+      # Enable CUPS to print documents.
+      printing.enable = true;
 
-            # Don't hibernate on delay
-            [org.gnome.settings-daemon.plugins.power]
-            sleep-inactive-ac-type='nothing'
+      pulseaudio.enable = false;
+      pipewire = {
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
+      };
 
-            # Don't sleep, don't sleep!
-            [org.gnome.desktop.session]
-            idle-delay=0
-          '';
+      # NVIDIA driver support
+      xserver.videoDrivers = ["nvidia"];
+      pcscd.enable = true;
+    };
 
-          extraGSettingsOverridePackages = [
-            pkgs.gsettings-desktop-schemas
-            pkgs.gnome-shell
-          ];
+    # Garbage collector.
+    nix.gc = {
+      automatic = true;
+      options = "--delete-older-than 10d";
+    };
+
+    # Virtualization (for GNOME Boxes)
+    virtualisation = {
+      libvirtd = {
+        enable = true;
+        qemu = {
+          package = pkgs.qemu_kvm;
+          runAsRoot = true;
+          swtpm.enable = true;
         };
       };
     };
-
-    # Make sure opengl is enabled
-    hardware.graphics = all-graphics // x86_64-graphics;
-
-    # Setting daemons
-    services = {
-      # Udev daemon management
-      udev.packages = with pkgs; [gnome-settings-daemon];
-    };
-
     programs = {
       gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
+        pinentryPackage = pkgs.pinentry-gnome3;
       };
-      # Enable the DConf configuration system.
-      dconf.enable = true;
-
-      # Enabling seahorse keyring
-      seahorse = {
-        enable = true;
-      };
-    };
-
-    environment = {
-      # Sum additional variables for system-wide use.
-      variables = {
-        # Disable compositing mode in WebKitGTK
-        # https://github.com/NixOS/nixpkgs/issues/32580
-        WEBKIT_DISABLE_COMPOSITING_MODE = 1;
-      };
-
-      # Exclude some packages from the Gnome desktop environment.
-      gnome.excludePackages =
-        (with pkgs; [
-          xterm
-          firefox
-          epiphany
-        ])
-        ++ (with pkgs; [
-          tali # poker game
-          iagno # go game
-          hitori # sudoku game
-          atomix # puzzle game
-        ]);
-
-      # Enable the Gnome Tweaks tool.
-      systemPackages = with pkgs; [
-        # Additional Gnome apps
-        gitg
-        lorem
-        emblem
-        commit
-        mousai
-        polari
-        amberol
-        blanket
-        curtail
-        elastic
-        errands
-        dialect
-        komikku
-        decibels
-        citations
-        newsflash
-        collision
-        fragments
-        newsflash
-        apostrophe
-        eyedropper
-        impression
-        textpieces
-        letterpress
-        forge-sparks
-        gnome-graphs
-        share-preview
-        authenticator
-        gnome-decoder
-        gnome-secrets
-        gnome-obfuscate
-        resources
-
-        # Developer
-        gnome-boxes
-        gnome-builder
-        d-spy
-        devhelp
-        sysprof
-        # blackbox-terminal # very laggy & buggy
-
-        # Gnome Modding
-        dconf-editor
-        gnome-tweaks
-
-        # Gnome Extensions
-        gnomeExtensions.appindicator
-        gnomeExtensions.dash-to-dock
-        gnomeExtensions.gsconnect
-
-        # Gnome Shell Packs
-        papirus-icon-theme
-
-        # Normal fucking browser
-        inputs.zen-browser.packages."${pkgs.system}".twilight
-
-        # Some office stuff
-        libreoffice-fresh
-      ];
+      atop.enable = true;
+      zsh.enable = true;
+      mtr.enable = true;
+      steam.enable = true;
     };
   };
 }

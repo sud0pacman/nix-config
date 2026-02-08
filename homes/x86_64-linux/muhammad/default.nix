@@ -6,7 +6,6 @@
   home = {
     stateVersion = "24.11";
     username = "muhammad";
-    enableNixpkgsReleaseCheck = false;
   };
 
   # Let's enable home-manager

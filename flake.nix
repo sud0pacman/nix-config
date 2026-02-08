@@ -1,10 +1,27 @@
 {
-  #     _   ___         ______            ____
-  #    / | / (_)  __   / ____/___  ____  / __/____
-  #   /  |/ / / |/_/  / /   / __ \/ __ \/ /_/ ___/
-  #  / /|  / />  <   / /___/ /_/ / / / / __(__  )
-  # /_/ |_/_/_/|_|   \____/\____/_/ /_/_/ /____/
-  description = "Muhammad's dotfiles";
+  # =================================================================
+  #    .oooooo.                       oooo        oooo
+  #   d8P'  `Y8b                      `888        `888
+  #  888      888 oooo d8b   oooooooo  888  oooo   888  oooo    ooo
+  #  888      888 `888""8P  d'""7d8P   888 .8P'    888   `88.  .8'
+  #  888      888  888        .d8P'    888888.     888    `88..8'
+  #  `88b    d88'  888      .d8P'  .P  888 `88b.   888     `888'
+  #   `Y8bood8P'  d888b    d8888888P  o888o o888o o888o     `8'
+  # =================================================================
+  description = "Sokhibjon's dotfiles managed via Nix configuration";
+  # =================================================================
+
+  # Extra nix configurations to inject to flake scheme
+  # => use if something doesn't work out of box or when despaired...
+  nixConfig = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+      "pipe-operators"
+    ];
+    extra-substituters = [ "https://cache.xinux.uz/" ];
+    extra-trusted-public-keys = [ "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0=" ];
+  };
 
   # inputs are other flakes you use within your own flake, dependencies
   # for your flake, etc.
@@ -12,21 +29,8 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    # Xinux library
-    xinux-lib = {
-      url = "github:xinux-org/lib/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # You can access packages and modules from different nixpkgs revs
-    # at the same time. Here's an working example:
-
-    # Nixpkgs for darwin
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
-
-    # Unstable Nixpkgs
+    # Nixpkgs Unstable for latest packages
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Also see the 'unstable-packages' overlay at 'overlays/home.nix'.
 
     # Home manager
     home-manager = {
@@ -37,11 +41,14 @@
     # Nix-darwin for macOS systems management
     darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Flake utils for eachSystem
-    flake-utils.url = "github:numtide/flake-utils";
+    # Xinux library
+    xinux-lib = {
+      url = "github:xinux-org/lib/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Secrets management
     sops-nix = {
@@ -55,76 +62,89 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Personal repository of lib, overlays and packages
-    orzklv-pkgs = {
-      url = "github:orzklv/pkgs";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-unstable.follows = "nixpkgs-unstable";
-      };
+    # Pre commit hooks for git
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # An anime game(s) launcher (Genshin Impact)
-    # aagl.url = "github:ezKEa/aagl-gtk-on-nix";
-    # Or, if you follow Nixkgs release 25.05:
-    aagl.url = "github:ezKEa/aagl-gtk-on-nix/release-25.11";
-    aagl.inputs.nixpkgs.follows = "nixpkgs"; # Name of nixpkgs input you want to use
 
     # Goofy ahh browser from brainrot generation
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
       # to have it up-to-date or simply don't specify the nixpkgs input
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
+
+    # Declarative Firefox plugins (a.k.a addons)
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    mac-style-plymouth = {
-      url = "github:xinux-org/xinux-plymouth-theme";
-      inputs.nixpkgs.follows = "nixpkgs";
+    # Good old Apple's Ligaturized SF Mono font
+    sf-mono-liga = {
+      url = "github:shaunsingh/SFMono-Nerd-Font-Ligaturized";
+      flake = false;
     };
-    # TODO: Add any other flake you might need
-    # hardware.url = "github:nixos/nixos-hardware";
 
-    # Shameless plug: looking for a way to nixify your themes and make
-    # everything match nicely? Try nix-colors!
-    # nix-colors.url = "github:misterio77/nix-colors";
+    # Ready to go hardware related configurations
+    hardware.url = "github:nixos/nixos-hardware";
   };
 
-  # In this context, outputs are mostly about getting home-manager what it
-  # needs since it will be the one using the flake
-  outputs = inputs:
+  outputs =
+    inputs:
+    # Let the xinux-lib/mkFlake handle literally EVERYTHING
     inputs.xinux-lib.mkFlake {
+      # Pass the vibe check
       inherit inputs;
+
+      # Indicate root of the project
+      # for library functions (nix issue)
       src = ./.;
 
       # Extra nix flags to set
       outputs-builder = channels: {
-        formatter = channels.nixpkgs.alejandra;
+        formatter = channels.nixpkgs.nixfmt-tree;
       };
 
       # Globally applied nixpkgs settings
       channels-config = {
+        # Disable if you don't want unfree packages
         allowUnfree = true;
+        # Disable if you don't want linux thingies on mac
         allowUnsupportedSystem = true;
+        # Workaround for https://github.com/nix-community/home-manager/issues/2942
         allowUnfreePredicate = _: true;
+        # Let the system use fucked up programs
         allowBroken = true;
+        # Allow NVIDIA's prop. software
+        nvidia.acceptLicense = true;
       };
 
-      # Add modules to all NixOS systems. 
-      # output should be something meaningfull {}: {}
-      # Locals imported autom automaticly
-      # a lot of module.nix from remote repos.
+      # Default imported modules for all nixos targets
+      systems.modules.nixos = with inputs; [
+        disko.nixosModules.disko
+      ];
+
+      # Default imported modules for all home-manager targets
+      homes.modules = with inputs; [
+        zen-browser.homeModules.twilight
+      ];
 
       # Extra project metadata
       xinux = {
         # Namespace for overlay, lib, packages
-        namespace = "muhammad";
+        namespace = "arava";
         # Example: lib.orzklv.match ...
 
         # For data extraction
         meta = {
-          name = "sud0pacman";
-          title = "sud0pacmanʼs Personal Flake Configuration";
+          name = "arava";
+          title = "Orzklv's Personal Flake Configuration";
         };
       };
     };

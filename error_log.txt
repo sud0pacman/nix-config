@@ -1,0 +1,62 @@
+
+mkalias> CMake Error at CMakeLists.txt:5 (find_library):
+mkalias>   Could not find FOUNDATION using the following names: Foundation
+mkalias> 
+mkalias> 
+mkalias> -- Configuring incomplete, errors occurred!
+error: Cannot build '/nix/store/kp2x7plifyixpyqyq9wasw703p9wcsxv-mkalias-1.1.0.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0
+       Last 24 log lines:
+       > Running phase: unpackPhase
+       > unpacking source archive /nix/store/hdbpdzfz77nylm5cw7z0nd3i35k6h1by-source
+       > source root is source
+       > Running phase: patchPhase
+       > Running phase: updateAutotoolsGnuConfigScriptsPhase
+       > Running phase: configurePhase
+       > cmake flags: -DCMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY=OFF -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF -DCMAKE_EXPORT_NO_PACKAGE_REGISTRY=ON -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF -DCMAKE_INSTALL_LOCALEDIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/share/locale -DCMAKE_INSTALL_LIBEXECDIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/libexec -DCMAKE_INSTALL_LIBDIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/lib -DCMAKE_INSTALL_DOCDIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/share/doc/mkalias -DCMAKE_INSTALL_INFODIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/share/info -DCMAKE_INSTALL_MANDIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/share/man -DCMAKE_INSTALL_INCLUDEDIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/include -DCMAKE_INSTALL_SBINDIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/sbin -DCMAKE_INSTALL_BINDIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/bin -DCMAKE_INSTALL_NAME_DIR=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0/lib -DCMAKE_STRIP=/nix/store/vr15iyyykg9zai6fpgvhcgyw7gckl78w-gcc-wrapper-14.3.0/bin/strip -DCMAKE_RANLIB=/nix/store/vr15iyyykg9zai6fpgvhcgyw7gckl78w-gcc-wrapper-14.3.0/bin/ranlib -DCMAKE_AR=/nix/store/vr15iyyykg9zai6fpgvhcgyw7gckl78w-gcc-wrapper-14.3.0/bin/ar -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_INSTALL_PREFIX=/nix/store/g9qnj7pribj9pszs1lvcc54ppq1jspd0-mkalias-1.1.0 -DMKALIAS_VERSION=1.1.0
+       > -- The C compiler identification is GNU 14.3.0
+       > -- The CXX compiler identification is GNU 14.3.0
+       > -- Detecting C compiler ABI info
+       > -- Detecting C compiler ABI info - done
+       > -- Check for working C compiler: /nix/store/vr15iyyykg9zai6fpgvhcgyw7gckl78w-gcc-wrapper-14.3.0/bin/gcc - skipped
+       > -- Detecting C compile features
+       > -- Detecting C compile features - done
+       > -- Detecting CXX compiler ABI info
+       > -- Detecting CXX compiler ABI info - done
+       > -- Check for working CXX compiler: /nix/store/vr15iyyykg9zai6fpgvhcgyw7gckl78w-gcc-wrapper-14.3.0/bin/g++ - skipped
+       > -- Detecting CXX compile features
+       > -- Detecting CXX compile features - done
+       > CMake Error at CMakeLists.txt:5 (find_library):
+       >   Could not find FOUNDATION using the following names: Foundation
+       >
+       > 
+       > -- Configuring incomplete, errors occurred!
+       For full logs, run:
+         nix log /nix/store/kp2x7plifyixpyqyq9wasw703p9wcsxv-mkalias-1.1.0.drv
+error: Cannot build '/nix/store/fm0wpr3x0lnma1ifwavd2zjrph9xpk0a-activation-script.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/aaim6qqv2vm1dxlzkg89ffrdxc26xaxb-activation-script
+error: Cannot build '/nix/store/92x965zqz3rfazqxhngn8fsbs71m1ajs-home-manager-generation.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/y1ikrj9bc1z974l3dyh8nrw32kk30ixz-home-manager-generation
+error: Cannot build '/nix/store/nl97ahwnkzziyk5cfvql112gaq4253gi-unit-home-manager-muhammad.service.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/ip8760kacqczwad5pvpf0d2cq4hd7x5q-unit-home-manager-muhammad.service
+error: Cannot build '/nix/store/6cvnqr3cnhd84gxaw86pyxj8bw3spw4c-system-units.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/f26gx1q1sryrmjy06qr30l9j3lm32d04-system-units
+error: Cannot build '/nix/store/8m5igzl8bipqfrgvkl47di0z7kvcfzwv-etc.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/alcyf7zjd56q4l7665jm5gq3379fidh4-etc
+error: Cannot build '/nix/store/66b7p5l8frgyp3zrwdaissa5ls8cydl5-nixos-system-arava-25.11.20251220.b3aad46.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/6pv3pvx6mplj19k33gyby8fbld3chzdi-nixos-system-arava-25.11.20251220.b3aad46
+
