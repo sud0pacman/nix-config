@@ -4,7 +4,7 @@
       enable = true;
       package = pkgs.vscode;
       mutableExtensionsDir = true;
-      
+
       profiles.default = {
         extensions = with pkgs.vscode-extensions; [
           # --- Core & UI ---
@@ -38,7 +38,7 @@
           "workbench.colorTheme" = "Community Material Theme Darker"; # Shu yerni o'zgartiring
           "workbench.iconTheme" = "material-icon-theme";
           "editor.tabSize" = 2;
-          "editor.fontFamily" = "'SFMono Nerd Font', 'Menlo', 'Monaco', 'Courier New', monospace";
+          # "editor.fontFamily" = "Iosevka, monospace";
           "files.autoSave" = "afterDelay";
           "update.mode" = "none";
           "telemetry.telemetryLevel" = "off";
@@ -49,12 +49,12 @@
           "nix.serverPath" = "nixd"; # yoki nil
           "nix.formatterPath" = "alejandra";
           # Muhim: Ba'zida nix-ide nix-instantiate-ni topa olmaydi
-          "nix.packagePath" = "${pkgs.nix}/bin/nix"; 
+          "nix.packagePath" = "${pkgs.nix}/bin/nix";
 
           "nix.serverSettings" = {
             "nixd" = {
               "formatting" = {
-                "command" = [ "alejandra" ];
+                "command" = ["alejandra"];
               };
             };
           };
