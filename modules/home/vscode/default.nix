@@ -38,7 +38,7 @@
           "workbench.colorTheme" = "Community Material Theme Darker"; # Shu yerni o'zgartiring
           "workbench.iconTheme" = "material-icon-theme";
           "editor.tabSize" = 2;
-          # "editor.fontFamily" = "Iosevka, monospace";
+          "editor.fontFamily" = "'Iosevka', 'JetBrainsMono Nerd Font', 'FiraCode Nerd Font', monospace";
           "files.autoSave" = "afterDelay";
           "update.mode" = "none";
           "telemetry.telemetryLevel" = "off";
