@@ -1,45 +1,36 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
-  options = {
-    git = {
-      isMacOS = lib.mkOption {
-        type = lib.types.bool;
-        default = pkgs.stdenv.hostPlatform.isDarwin;
-        description = "Install MacOS specific agent.";
-      };
-    };
-  };
+{...}: {
+  programs.git = {
+    enable = true;
+    lfs.enable = true;
 
-  config = {
-    # Git Configurations
-    programs.git.settings = {
-      enable = true;
-      lfs.enable = true;
-
-      # User credentials
-      userName = "sud0pacman";
-      userEmail = "mukhammad.kammoliddin@gmail.com";
-
+    settings = {
+      user.name = "sud0pacman";
+      user.email = "mukhammad.kammoliddin@gmail.com";
       extraConfig = {
+        init.defaultBranch = "main";
         http.sslVerify = false;
         pull.rebase = false;
-      };
 
-      # Aliases
-      aliases = {
-        ch = "checkout";
+        # safe.directory = [
+        #   "/home/bahrom/workplace/bahrom04/nix-config"
+        #   # Add other safe directories here if needed
+        # ];
       };
-
-      # Git ignores
-      ignores = [
-        ".idea"
-        ".DS_Store"
-        "nohup.out"
-      ];
     };
+
+    signing = {
+      signByDefault = true;
+      key = "0C0976C400115495";
+    };
+
+    # Git ignores
+    ignores = [
+      ".idea"
+      ".DS_Store"
+      "nohup.out"
+      "node_modules"
+      "result"
+      ".direnv"
+    ];
   };
 }
