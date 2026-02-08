@@ -65,17 +65,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Goofy ahh browser from brainrot generation
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
-      # to have it up-to-date or simply don't specify the nixpkgs input
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
-
     # Declarative Firefox plugins (a.k.a addons)
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -125,11 +114,6 @@
       # Default imported modules for all nixos targets
       systems.modules.nixos = with inputs; [
         disko.nixosModules.disko
-      ];
-
-      # Default imported modules for all home-manager targets
-      homes.modules = with inputs; [
-        zen-browser.homeModules.twilight
       ];
 
       # Extra project metadata
