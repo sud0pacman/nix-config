@@ -7,7 +7,7 @@
     krb5 # Provides Kerberos support libraries
     winetricks # Useful for further troubleshooting
     protontricks
-    
+
     gnome-builder
     fractal
     authenticator
@@ -35,6 +35,7 @@
     gradia
     cpu-x
     sqlitebrowser
+    android-studio
     # poedit.override { boo}
   ];
 }

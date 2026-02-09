@@ -10,15 +10,15 @@
   # ============================================================================================
   # Extra nix configurations to inject to flake scheme
   # => use if something doesn't work out of box or when despaired...
-  nixConfig = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-      "pipe-operators"
-    ];
-    extra-substituters = [ "https://cache.xinux.uz/" ];
-    extra-trusted-public-keys = [ "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0=" ];
-  };
+  # nixConfig = {
+  #   experimental-features = [
+  #     "nix-command"
+  #     "flakes"
+  #     "pipe-operators"
+  #   ];
+  #   extra-substituters = [ "https://cache.xinux.uz/" ];
+  #   extra-trusted-public-keys = [ "cache.xinux.uz:BXCrtqejFjWzWEB9YuGB7X2MV4ttBur1N8BkwQRdH+0=" ];
+  # };
 
   # inputs are other flakes you use within your own flake, dependencies
   # for your flake, etc.
@@ -92,9 +92,8 @@
     hardware.url = "github:nixos/nixos-hardware";
   };
 
-  outputs =
-    inputs:
-    # Let the xinux-lib/mkFlake handle literally EVERYTHING
+  outputs = inputs:
+  # Let the xinux-lib/mkFlake handle literally EVERYTHING
     inputs.xinux-lib.mkFlake {
       # Pass the vibe check
       inherit inputs;
