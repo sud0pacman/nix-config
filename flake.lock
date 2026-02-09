@@ -349,8 +349,7 @@
         "pre-commit-hooks": "pre-commit-hooks",
         "sf-mono-liga": "sf-mono-liga",
         "sops-nix": "sops-nix",
-        "xinux-lib": "xinux-lib",
-        "zen-browser": "zen-browser"
+        "xinux-lib": "xinux-lib"
       }
     },
     "sf-mono-liga": {
@@ -448,29 +447,6 @@
         "owner": "xinux-org",
         "ref": "main",
         "repo": "lib",
-        "type": "github"
-      }
-    },
-    "zen-browser": {
-      "inputs": {
-        "home-manager": [
-          "home-manager"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1766410104,
-        "narHash": "sha256-Eh+TUdb4CGscBLG3Q6QOQOjEdPCmHPClGyeHf4F67Mk=",
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
-        "rev": "eaff1bc54b9a8bd698c2dc47823400460e9f38a0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "0xc000022070",
-        "repo": "zen-browser-flake",
         "type": "github"
       }
     }

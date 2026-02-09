@@ -16,7 +16,6 @@
     "sf-symbols"
     "telegram-desktop"
     "visual-studio-code"
-    "zen"
     "steam"
   ];
 in {
