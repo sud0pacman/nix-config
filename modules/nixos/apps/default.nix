@@ -36,6 +36,8 @@
     cpu-x
     sqlitebrowser
     android-studio
+    scrcpy
+    android-tools
     # poedit.override { boo}
   ];
 }

@@ -56,6 +56,8 @@
     };
   };
 
+  programs.adb.enable = true;
+
   # remove all gnome utility apps
   # services.gnome.core-utilities.enable = false;
 
