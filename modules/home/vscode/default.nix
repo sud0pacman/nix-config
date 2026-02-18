@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   config = {
     programs.vscode = {
       enable = true;
@@ -54,7 +55,7 @@
           "nix.serverSettings" = {
             "nixd" = {
               "formatting" = {
-                "command" = ["alejandra"];
+                "command" = [ "alejandra" ];
               };
             };
           };
@@ -75,6 +76,7 @@
           "dart.openDevTools" = "flutter";
           "dart.debugExternalPackageLibraries" = false;
           "dart.debugSdkLibraries" = false;
+          "dart.lineLength" = 120;
           "[dart]" = {
             "editor.formatOnSave" = true;
             "editor.formatOnType" = true;
