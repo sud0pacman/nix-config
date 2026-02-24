@@ -16,6 +16,13 @@
   #   flakearg = "arava";
   # };
 
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs;
+    [
+      aapt
+    ];
+
+
   services = {
     samba = {
       enable = true;

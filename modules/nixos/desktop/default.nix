@@ -139,7 +139,11 @@
       atop.enable = true;
       zsh.enable = true;
       mtr.enable = true;
-      steam.enable = true;
+      steam.enable = {
+        enable = true;
+
+        extraCompatPackges = [ pkgs.proton-ge-bin ];
+      };
     };
   };
 }
