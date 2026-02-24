@@ -38,6 +38,7 @@
     android-studio
     scrcpy
     android-tools
+    qemu
     # poedit.override { boo}
   ];
 }
